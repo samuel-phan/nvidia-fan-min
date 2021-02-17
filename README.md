@@ -15,6 +15,24 @@ No warranty about this tool, use at your own risk.
 
 # How to install
 
+- First, install proprietary NVIDIA drivers.
+- Edit the file `/usr/share/X11/xorg.conf.d/10-nvidia.conf` and add this line:
+
+```
+Section "OutputClass"
+    Identifier "nvidia"
+    MatchDriver "nvidia-drm"
+    Driver "nvidia"
+    Option "AllowEmptyInitialConfiguration"
+    Option "Coolbits" "28"    <-- ADD THIS LINE
+    ModulePath "/usr/lib/x86_64-linux-gnu/nvidia/xorg"
+EndSection
+```
+
+Log out and back in to refresh the X server.
+
+In the `NVIDIA X Server Settings` > `Thermal Settings`, you can now control the fan manually.
+
 Edit the `nvidia-fan-min.service` file to set the `ExecStart` value to the location of your script `nvidia-fan-min.sh`.
 
 ```
