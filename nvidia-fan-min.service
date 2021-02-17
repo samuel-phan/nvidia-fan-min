@@ -1,0 +1,12 @@
+[Unit]
+Description=NVIDIA fan min service
+After=default.target
+
+[Service]
+ExecStart=/home/piloupy/git/nvidia-fan-min/nvidia-fan-min.sh
+KillSignal=SIGINT
+
+Environment="DISPLAY=:0"
+
+[Install]
+WantedBy=default.target
