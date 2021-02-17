@@ -7,7 +7,7 @@ This small project is to have a systemd service to set the NVIDIA fan at a minim
 When GPU temperature is:
 
 - < 40°C: the fan is set to 20% of speed.
-- \>= 40°C: then fan control is given to the NVIDIA driver.
+- \>= 40°C: the fan control is given to the NVIDIA driver.
 
 # Disclaimer
 
