@@ -7,6 +7,7 @@ ExecStart=/home/piloupy/git/nvidia-fan-min/nvidia-fan-min.sh
 KillSignal=SIGINT
 
 Environment="DISPLAY=:0"
+Environment="XAUTHORITY=/var/run/lightdm/root/:0"
 
 [Install]
 WantedBy=default.target
