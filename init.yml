@@ -1,0 +1,54 @@
+- hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Add the line "Coolbits" in the xorg configuration
+      ansible.builtin.lineinfile:
+        path: "{{ xorg_nvidia_conf_file }}"
+        insertafter: 'Option "AllowEmptyInitialConfiguration"'
+        line: "{{ xorg_nvidia_line }}"
+      register: add_line
+
+    - name: "Copy the systemd service file {{ systemd_service_file }}"
+      template:
+        src: nvidia-fan-min.service.j2
+        dest: "{{ systemd_service_file }}"
+      vars:
+        nvidia_fan_min_path: "{{ playbook_dir }}"
+      notify: Restart nvidia-fan-min
+
+    - meta: flush_handlers
+
+    - name: Start the nvidia-fan-min service
+      service:
+        name: nvidia-fan-min
+        state: started
+        enabled: yes
+
+    # Message to the end-user
+    - debug:
+        msg: Everything is fine with the xorg & NVIDIA configuration.
+      when: not add_line.changed
+
+    - block:
+        - debug:
+            msg: |
+              Line `{{ xorg_nvidia_line }}` added in "{{ xorg_nvidia_conf_file }}":
+              {{ lookup('file', xorg_nvidia_conf_file) }}
+          changed_when: yes
+
+        - debug:
+            msg: You must log out and log back in to reload your X Server!
+          changed_when: yes
+      when: add_line.changed
+
+  handlers:
+    - name: Restart nvidia-fan-min
+      service:
+        name: nvidia-fan-min
+        state: restarted
+
+  vars:
+    xorg_nvidia_conf_file: /usr/share/X11/xorg.conf.d/10-nvidia.conf
+    xorg_nvidia_line: '    Option "Coolbits" "28"'
+    systemd_service_file: /etc/systemd/system/nvidia-fan-min.service
