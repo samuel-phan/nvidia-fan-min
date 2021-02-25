@@ -19,12 +19,18 @@ No warranty about this tool, use at your own risk.
 - Edit the file `/usr/share/X11/xorg.conf.d/10-nvidia.conf` and add this line:
 
 ```
+    Option "Coolbits" "28"
+```
+
+in this section:
+
+```
 Section "OutputClass"
     Identifier "nvidia"
     MatchDriver "nvidia-drm"
     Driver "nvidia"
     Option "AllowEmptyInitialConfiguration"
-    Option "Coolbits" "28"    <-- ADD THIS LINE
+    Option "Coolbits" "28"
     ModulePath "/usr/lib/x86_64-linux-gnu/nvidia/xorg"
 EndSection
 ```
