@@ -13,7 +13,15 @@ When GPU temperature is:
 
 No warranty about this tool, use at your own risk.
 
-# How to install
+# How to install (automatically with Ansible)
+
+Run:
+
+```
+ansible-playbook init.yml
+```
+
+# How to install (manually)
 
 - First, install proprietary NVIDIA drivers.
 - Edit the file `/usr/share/X11/xorg.conf.d/10-nvidia.conf` and add this line:
@@ -39,10 +47,10 @@ Log out and back in to refresh the X server.
 
 In the `NVIDIA X Server Settings` > `Thermal Settings`, you can now control the fan manually.
 
-Edit the `nvidia-fan-min.service` file to set the `ExecStart` value to the location of your script `nvidia-fan-min.sh`.
+Edit the `nvidia-fan-min.service.j2` file to set the `ExecStart` value to the location of your script `nvidia-fan-min.sh`.
 
 ```
-sudo ln -s /path/to/nvidia-fan-min.service /etc/systemd/system/nvidia-fan-min.service
+sudo cp /path/to/nvidia-fan-min.service /etc/systemd/system/nvidia-fan-min.service
 sudo systemctl enable nvidia-fan-min
 sudo systemctl start nvidia-fan-min
 ```
