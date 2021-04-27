@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# Copyright (c) 2021 Samuel Phan
+# Licensed under the terms of the MIT License. See LICENSE file in project root for terms.
 
 fan_control=""
 FAN_CONTROL_AUTO=0
