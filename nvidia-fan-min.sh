@@ -5,7 +5,7 @@
 fan_control=""
 FAN_CONTROL_AUTO=0
 FAN_CONTROL_MANUAL=1
-fan_speed=20
+fan_speed=40
 gpu_cmd="nvidia-settings"
 sleep_time=1
 temperature_threshold=40
