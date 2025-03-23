@@ -55,7 +55,7 @@ echo "Number of GPUs detected: $num_gpus"
 # Main loop
 while :; do
     temperature=$(get_temperature)
-    if (( temperature < 40 )); then
+    if (( temperature < temperature_threshold )); then
         if (( fan_control == FAN_CONTROL_AUTO )) || [ -z $fan_control ]; then
             # set manual fan
             (( fan_control = FAN_CONTROL_MANUAL ))
